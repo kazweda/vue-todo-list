@@ -8,6 +8,12 @@
       v-model="newTask"
       placeholder="Add a new task"
     >
+    <button
+      @click="addTask"
+      :disabled="newTask.length < 1"
+    >
+      Add task
+    </button>
   </div>
 
   <div v-if="newTask.length > 0">
@@ -43,7 +49,20 @@ export default {
         { id: 2, name: 'Build a Vue application', finished: true },
         { id: 3, name: 'Write an article about Vue JS', finished: false }
       ],
-      maxTasks: 2
+      maxTasks: 5
+    }
+  },
+  methods: {
+    addTask() {
+      if (this.newTask.length < 1) return
+
+      this.tasks.push({
+        id: this.tasks.length + 1,
+        name: this.newTask,
+        finished: false
+      });
+
+      this.newTask = ''
     }
   }
 }
